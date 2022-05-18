@@ -17,3 +17,5 @@ Etape 1 : installations
         npm install pug --save
      
 
+ETAPE 2 - LES ROUTES + VUES
+
