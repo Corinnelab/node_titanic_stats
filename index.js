@@ -1,31 +1,24 @@
 import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
+import 'dotenv/config'; 
 
-import routing from "./routes/index.js";
-import "dotenv/config";
-import { config } from "./config/settings.js";
+import mainRouter from './routes/index.js';
 
-import session from 'express-session';
 const app = express();
-const { LOCALHOST, PORT } = config;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const { APP_LOCALHOST:hostname, APP_PORT:port } = process.env ;
 
-app.use(session({
-    name : 'session-id',
-    secret : 'RANDOM_TOKEN_SECRET',
-    resave :true,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl:"mongodb://localhost:27017/kittens" }),
-    cookie : { maxAge : 180 * 60 * 1000 } // on détermine la durée de vie de la session
-}));
 
-app.set("views", "./views");
+
+app.use(express.static(path.join(__dirname, "public")));
+
+
+app.use('/', mainRouter);
 app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
-app.use(express.json()); // pour parser content-type:application/json
-app.use(express.urlencoded({ extended: true })); 
 
-app.use(routing);
-
-app.listen(PORT, () => {
-    console.log(`app listening at http://${LOCALHOST}:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server app listening at http://${hostname}:${port}`);
 });

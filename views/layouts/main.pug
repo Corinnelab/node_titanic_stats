@@ -8,7 +8,12 @@ html(lang="en")
         title Titanic statistiques 
 
     body 
-        include ../partials/header.pug    
+        include ../partials/header.pug   
 
-        .container
-                block content
+        .container.row
+            .col-4
+                block sidebar
+            .col-8
+                block content 
+
+
