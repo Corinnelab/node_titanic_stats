@@ -1,9 +1,28 @@
-main#connect(role='main')
-    form(action='/auth/register' method='post')
-        legend Register
-        label(for='alias')
-            input#alias(type='text' name='alias' placeholder='your name' aria-placeholder='your name')
-        label(for='pwd')
-            input#pwd(type='password' name='pwd' placeholder='your password' aria-placeholder='your password' autocomplete='off')
-            input(type='submit' value='send')
-    a(href='/auth/login') -&gt;Or login
+extends ../layouts/main.pug
+
+block  content
+
+    form.ui.large.form(action='/register' method='post')
+        .ui.stacked.segment
+            .field
+            .ui.left.icon.input
+                i.user.icon
+                input(type='text' name='firstName' placeholder='firstName' value="")
+            .field
+            .ui.left.icon.input
+                i.user.icon
+                input(type='text' name='lastName' placeholder='lastName' value="")
+            .field
+            .ui.left.icon.input
+                i.user.icon
+                input(type='text' name='email' placeholder='E-mail address' value="")
+            .field
+            .ui.left.icon.input
+                i.lock.icon
+                input(type='password' name='password' placeholder='Password')
+            .ui.left.icon.input
+                i.lock.icon
+                input(type='password' name='passwordConfirm' placeholder='passwordConfirm')
+        button.ui.fluid.large.teal.submit.button(type='submit') S'enregistrer
+
+        a(href='/auth/login') Déjà un compte ? Se connecter

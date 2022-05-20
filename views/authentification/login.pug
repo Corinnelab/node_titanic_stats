@@ -1,10 +1,16 @@
-       
-main#connect(role='main')
-    form(action='/auth/login' method='post')
-        legend Login
-        label(for='alias')
-            input#alias(type='text' name='alias' placeholder='your name' aria-placeholder='your name')
-        label(for='pwd')
-            input#pwd(type='password' name='pwd' placeholder='your password' aria-placeholder='your password' autocomplete='off')
-            input(type='submit' value='send')
-    a(href='/auth/register') -&gt;Or register
+extends ../layouts/main.pug
+
+block  content
+
+    main#connect(role='main')
+        form(action='/auth/login' method='post')
+            legend Login
+            label(for='alias')
+                input#alias(type='text' name='alias' placeholder='your name' aria-placeholder='your name')
+            label(for='pwd')
+                input#pwd(type='password' name='pwd' placeholder='your password' aria-placeholder='your password' autocomplete='off')
+
+        button.ui.fluid.large.teal.submit.button(type='submit') Se connecter
+        //input(type='submit' value='send')
+
+        a(href='/auth/register') Pas encore de compte ? S'enregistrer

@@ -1,31 +1,36 @@
 import express from "express";
-import path from "path";
-
+import session from "express-session";
+import flash from 'connect-flash';
+import { __dirname, pathViews, pathPublic } from './utils.js';
 import routing from "./routes/index.js";
-import "dotenv/config";
-import { config } from "./config/settings.js";
+import 'dotenv/config'; 
+import mongoose from "mongoose";
 
-import session from 'express-session';
 const app = express();
-const { LOCALHOST, PORT } = config;
+const { APP_LOCALHOST, APP_PORT, APP_ADDRESS_MONGODB, APP_COLLECTION_POSTS_MONGODB } = process.env ;
 
-app.use(session({
-    name : 'session-id',
-    secret : 'RANDOM_TOKEN_SECRET',
-    resave :true,
+mongoose.connect(
+  `mongodb://${APP_ADDRESS_MONGODB}/${APP_COLLECTION_POSTS_MONGODB}`, {
+    useNewUrlParser : true,
+    useUnifiedTopology : true,
+  }
+)
+
+app.use(
+  session({
+    secret: "register123",
+    resave: true,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl:"mongodb://localhost:27017/kittens" }),
-    cookie : { maxAge : 180 * 60 * 1000 } // on détermine la durée de vie de la session
-}));
-
-app.set("views", "./views");
+  })
+);
+app.use(flash());
+app.use(express.static(pathPublic));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "pug");
-
-app.use(express.json()); // pour parser content-type:application/json
-app.use(express.urlencoded({ extended: true })); 
-
+app.set("views", pathViews);
 app.use(routing);
 
-app.listen(PORT, () => {
-    console.log(`app listening at http://${LOCALHOST}:${PORT}`);
+app.listen(APP_PORT, () => {
+  console.log(`Server app listening at http://${APP_LOCALHOST}:${APP_PORT}`);
 });
