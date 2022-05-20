@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 export default (req, res) => {
   const { firstName, lastName, email, password, passwordConfirm } = req.body;
 
+
+  if (req.method === "GET") {
+    res.render("authentification/register");
+    return;
+  }
   // messages, validators
   let messages = [],
     old = { firstName: "", lastName: "", email: "" };
@@ -63,9 +68,7 @@ export default (req, res) => {
   }
 
   if (messages.length > 0) {
-    console.log(messages);
-    res.render("home/index", { messages, old });
-
+    res.render("authentification/register", { messages, old });
     return;
   }
 
@@ -90,12 +93,12 @@ export default (req, res) => {
             title: "Already exists",
           });
 
-          res.render("home/index", { messages, old });
+          res.render("authentification/register", { messages, old });
         } else {
           newUser.save().then((user) => {
             req.flash("flash_message", "You are now registered, please login");
 
-            res.redirect("/auth/login");
+            res.redirect("/login");
           });
         }
       });

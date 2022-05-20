@@ -2,15 +2,22 @@ extends ../layouts/main.pug
 
 block  content
 
-    main#connect(role='main')
-        form(action='/auth/login' method='post')
-            legend Login
-            label(for='alias')
-                input#alias(type='text' name='alias' placeholder='your name' aria-placeholder='your name')
-            label(for='pwd')
-                input#pwd(type='password' name='pwd' placeholder='your password' aria-placeholder='your password' autocomplete='off')
-
+    form.ui.large.form(action='/login' method='post')
+        .ui.stacked.segment
+            .field
+            .ui.left.icon.input
+                i.user.icon
+                input(type='text' name='firstName' placeholder='firstName' value="")
+            .field
+            .ui.left.icon.input
+                i.user.icon
+                input(type='text' name='email' placeholder='E-mail address' value="")
+            .field
+            .ui.left.icon.input
+                i.lock.icon
+                input(type='password' name='password' placeholder='Password')
         button.ui.fluid.large.teal.submit.button(type='submit') Se connecter
-        //input(type='submit' value='send')
 
-        a(href='/auth/register') Pas encore de compte ? S'enregistrer
+        a(href='/login') Pas encore de compte ? S'enregistrer
+
+

@@ -6,8 +6,8 @@ export default (req, res, next) => {
       typeof decode === "undefined" ||
       (req.session.userId && req.session.userId !== decode.userId)
     ) {
-      req.flash("flash_message", "error authentification");
-      res.redirect('/auth/login');
+      req.flash("flash_message", "error authentification !");
+      res.redirect('/login');
       return;
     }
     next();

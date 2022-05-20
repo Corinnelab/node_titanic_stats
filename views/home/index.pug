@@ -4,3 +4,15 @@ block content
 
     h1 Application :Statistiques du Titanic
 
+    h2 Survivants
+
+    table(style='width:100%', border='1')
+        tr
+            th Nom
+            th Age
+            th Sexe
+        each passenger in passengers
+            tr
+                td=passenger.Name
+                td=passenger.Age
+                td=passenger.Sex

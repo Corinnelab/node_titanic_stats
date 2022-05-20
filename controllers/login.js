@@ -11,7 +11,6 @@ export default (req, res) => {
   }
 
   const { email, password } = req.body;
-  
   if (!email) {
     messages.push({ message: "Email required", title: "Email" });
   } else {
@@ -66,6 +65,6 @@ export default (req, res) => {
 
       req.session.userId = _id;
 
-      return res.redirect("/stats/home");
+      return res.redirect("/");
     });
 };
