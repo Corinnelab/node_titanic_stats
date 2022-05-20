@@ -4,7 +4,6 @@ import {
 
 
 export default async(req, res) => {
-
     try {
         const passengers = await getAllPassengers();
         res.render("home/index", { passengers: passengers });
