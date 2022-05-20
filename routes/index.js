@@ -16,4 +16,10 @@ router.get("/auth/register",  (req, res) => {
 router.post('/register', RegisterController);
 router.get('/',authMiddleware,  StatController);
 
+router.get("/login", (req, res) => {
+  res.render("./authentification/login.pug");
+});
+
+
+
 export default router;
